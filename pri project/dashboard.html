@@ -1,0 +1,302 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Student Dashboard</title>
+<link rel="stylesheet" href="style.css">
+<script defer src="script.js"></script>
+</head>
+
+<body onload="loadDashboard()">
+
+<header>
+<h1>Student Dashboard</h1>
+</header>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="#studentDetails" id="studentDetailsLink" style="display:none;">Student Details</a>
+<a href="#" onclick="showNotifications()" style="font-weight:600; color:#ff6b6b;">🔔 Notifications</a>
+<a href="#" onclick="logout()">Logout</a>
+</nav>
+
+<div class="container">
+
+<h2 id="welcome"></h2>
+
+<p>Phone: <span id="phone"></span></p>
+
+<p id="appStatus"></p>
+
+<div style="display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
+  <button onclick="viewProfile()" style="padding:8px 16px; background:#0b3d91; color:#fff; border:none; border-radius:6px; cursor:pointer; font-weight:600;">👤 View Profile</button>
+  <button onclick="exportStudentPDF()" style="padding:8px 16px; background:#d97706; color:#fff; border:none; border-radius:6px; cursor:pointer; font-weight:600;">📄 Download Profile PDF</button>
+  <a href="notices.html" style="padding:8px 16px; background:#2b8a57; color:#fff; text-decoration:none; border-radius:6px; font-weight:600; display:inline-block;">📢 View Notices</a>
+</div>
+
+<!-- Notification Modal -->
+<div id="notificationModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:999; align-items:center; justify-content:center;">
+  <div style="background:#fff; padding:24px; border-radius:12px; max-width:500px; max-height:80vh; overflow-y:auto; box-shadow:0 10px 40px rgba(0,0,0,0.2);">
+    <!-- Content loaded by showNotifications() -->
+  </div>
+  <div style="position:absolute; top:20px; right:30px; cursor:pointer; color:#fff; font-size:28px; font-weight:bold;" onclick="document.getElementById('notificationModal').parentElement.style.display='none';">&times;</div>
+</div>
+
+<div id="studentDetails" style="display:none;">
+<h3>Student Details</h3>
+<table class="profile-table">
+  <tr><th>Name</th><td id="dname"></td></tr>
+  <tr><th>Email</th><td id="demail"></td></tr>
+  <tr><th>Phone</th><td id="dphone"></td></tr>
+  <tr><th>Course</th><td id="dcourse"></td></tr>
+  <tr><th>Gender</th><td id="dgender"></td></tr>
+  <tr><th>Date of Birth</th><td id="ddob"></td></tr>
+  <tr><th>Address</th><td id="daddress"></td></tr>
+  <tr><th>Father's Name</th><td id="dfatherName"></td></tr>
+  <tr><th>Mother's Name</th><td id="dmotherName"></td></tr>
+  <tr><th>Caste</th><td id="dcaste"></td></tr>
+  <tr><th>Nationality</th><td id="dnationality"></td></tr>
+  <tr><th>State</th><td id="dstate"></td></tr>
+  <tr><th>Pincode</th><td id="dpincode"></td></tr>
+  <tr><th>Aadhar Card</th><td id="dadharFile"></td></tr>
+  <tr><th>Marks Card</th><td id="dmarksCardFile"></td></tr>
+  <tr><th>Ration Card</th><td id="drationCardFile"></td></tr>
+</table>
+</div>
+
+<div id="marksSection" style="display:none; margin-top:28px; padding:20px; background:linear-gradient(135deg, #f9faff, #f5f7fe); border:1px solid #d4d9eb; border-radius:14px;">
+  <h3 style="margin-top:0;">Year-wise Marks</h3>
+  <div class="year-buttons" style="margin-bottom:16px;">
+    <button type="button" id="semBtn1" onclick="showSemesterMarks(1)">1st Semester</button>
+    <button type="button" id="semBtn2" onclick="showSemesterMarks(2)">2nd Semester</button>
+    <button type="button" id="semBtn3" onclick="showSemesterMarks(3)">3rd Semester</button>
+    <button type="button" id="semBtn4" onclick="showSemesterMarks(4)">4th Semester</button>
+    <button type="button" id="semBtn5" onclick="showSemesterMarks(5)">5th Semester</button>
+    <button type="button" id="semBtn6" onclick="showSemesterMarks(6)">6th Semester</button>
+  </div>
+  <div id="semesterMarksContainer" style="background:#fff; border:1px solid #d4d9eb; border-radius:12px; padding:16px; min-height:220px; margin-bottom:14px;"></div>
+  <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    <button type="button" id="downloadMarksBtn" onclick="downloadMarksReport()">Download Marks Report (CSV)</button>
+    <button type="button" id="printMarksBtn" onclick="printMarksReport()">Print / Download PDF</button>
+  </div>
+</div>
+
+<div id="marksEditor" style="display:none; margin-top:28px; background:linear-gradient(135deg, #fff9f5, #fffaf8); border:1px solid #e0d6cb; border-radius:14px; padding:20px;">
+  <h3 style="margin-top:0;">Edit Student Marks</h3>
+  <label for="marksSemesterSelect"><strong>Select Semester to Edit:</strong></label>
+  <select id="marksSemesterSelect" onchange="loadMarksEditor()" style="margin:8px 0 16px 0; padding:8px; border:1px solid #d0d6eb; border-radius:8px;">
+    <option value="1">1st Semester</option>
+    <option value="2">2nd Semester</option>
+    <option value="3">3rd Semester</option>
+    <option value="4">4th Semester</option>
+    <option value="5">5th Semester</option>
+    <option value="6">6th Semester</option>
+  </select>
+  
+  <div style="background:#fff; border:1px solid #d4d9eb; border-radius:12px; padding:16px; margin-bottom:14px;">
+    <h4 style="margin-top:0;">Subject Names for this Year</h4>
+    <div id="subjectNamesContainer" style="display:grid; grid-template-columns:1fr auto; gap:10px; align-items:end; margin-bottom:12px;"></div>
+    <button type="button" onclick="addSubjectField()" style="padding:8px 16px; background:#2b8a57; color:#fff; border:none; border-radius:6px; cursor:pointer; font-weight:600;">+ Add Subject</button>
+  </div>
+  
+  <div id="marksEditorFields" class="form-grid register-grid"></div>
+  <button type="button" onclick="saveMarks()" style="margin-top:14px;">Save Year Marks</button>
+</div>
+
+<div id="applyLink" style="display:none;"><button onclick="showApplicationForm()">Click here for Student Application Form</button></div>
+
+<div id="applicationForm" style="display:none;">
+<h3>Student Application Form</h3>
+<p id="stepIndicator" style="font-weight:600; margin-bottom:12px;">Step 1 of 3</p>
+<form id="studentAppForm" onsubmit="return false;">
+
+  <div class="application-tab">
+    <h4>Part 1: Student Details</h4>
+    <div class="form-grid register-grid">
+      <div class="form-field">
+        <label for="app-name">Student Name</label>
+        <input type="text" id="app-name" placeholder="Enter full name" required>
+        <small class="field-error" id="err-app-name"></small>
+      </div>
+
+      <div class="form-field">
+        <label for="app-phone">Phone</label>
+        <input type="text" id="app-phone" placeholder="Enter phone number" required>
+        <small class="field-error" id="err-app-phone"></small>
+      </div>
+
+      <div class="form-field">
+        <label for="app-email">Email</label>
+        <input type="email" id="app-email" placeholder="Enter email" required>
+        <small class="field-error" id="err-app-email"></small>
+      </div>
+
+      <div class="form-field">
+        <label for="app-course">Course</label>
+        <select id="app-course" required>
+          <option value="" selected disabled>Select course</option>
+          <option value="B.COM">B.COM</option>
+          <option value="BBA">BBA</option>
+          <option value="BCA">BCA</option>
+          <option value="B.SC">B.SC</option>
+        </select>
+        <small class="field-error" id="err-app-course"></small>
+      </div>
+
+      <div class="form-field">
+        <label for="app-gender">Gender</label>
+        <select id="app-gender" required>
+          <option value="" selected disabled>Select gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+        <small class="field-error" id="err-app-gender"></small>
+      </div>
+
+      <div class="form-field">
+        <label for="app-dob">Date of Birth</label>
+        <input type="date" id="app-dob" required>
+        <small class="field-error" id="err-app-dob"></small>
+      </div>
+
+      <div class="form-field form-field-2col">
+        <label for="app-address">Street Address</label>
+        <textarea id="app-address" rows="3" placeholder="Enter your street address" required></textarea>
+        <small class="field-error" id="err-app-address"></small>
+      </div>
+
+      <div class="form-field">
+        <label for="app-fatherName">Father's Name</label>
+        <input type="text" id="app-fatherName" placeholder="Enter father's full name" required>
+        <small class="field-error" id="err-app-fatherName"></small>
+      </div>
+
+      <div class="form-field">
+        <label for="app-motherName">Mother's Name</label>
+        <input type="text" id="app-motherName" placeholder="Enter mother's full name" required>
+        <small class="field-error" id="err-app-motherName"></small>
+      </div>
+
+      <div class="form-field">
+        <label for="app-caste">Caste</label>
+        <input type="text" id="app-caste" placeholder="Enter your caste" required>
+        <small class="field-error" id="err-app-caste"></small>
+      </div>
+
+      <div class="form-field">
+        <label for="app-nationality">Nationality</label>
+        <input type="text" id="app-nationality" placeholder="Enter your nationality" required>
+        <small class="field-error" id="err-app-nationality"></small>
+      </div>
+
+      <div class="form-field">
+        <label for="app-state">State</label>
+        <input type="text" id="app-state" placeholder="Enter your state" required>
+        <small class="field-error" id="err-app-state"></small>
+      </div>
+
+      <div class="form-field">
+        <label for="app-pincode">Pincode</label>
+        <input type="text" id="app-pincode" placeholder="Enter 6-digit pincode" required>
+        <small class="field-error" id="err-app-pincode"></small>
+      </div>
+    </div>
+  </div>
+
+  <div class="application-tab" style="display:none;">
+    <h4>Part 2: Document Uploads</h4>
+    <div class="form-grid register-grid">
+      <div class="form-field">
+        <label for="app-studentPhoto">Student Photo</label>
+        <input type="file" id="app-studentPhoto" accept="image/*" required>
+        <small class="field-error" id="err-app-studentPhoto"></small>
+      </div>
+      <div class="form-field">
+        <label for="app-adharFile">Aadhar Card</label>
+        <input type="file" id="app-adharFile" accept="image/*,.pdf" required>
+        <small class="field-error" id="err-app-adharFile"></small>
+      </div>
+      <div class="form-field">
+        <label for="app-marksCardFile">Marks Card</label>
+        <input type="file" id="app-marksCardFile" accept="image/*,.pdf" required>
+        <small class="field-error" id="err-app-marksCardFile"></small>
+      </div>
+      <div class="form-field">
+        <label for="app-rationCardFile">Ration Card</label>
+        <input type="file" id="app-rationCardFile" accept="image/*,.pdf" required>
+        <small class="field-error" id="err-app-rationCardFile"></small>
+      </div>
+    </div>
+    <div class="form-field form-terms">
+      <label class="checkbox-label">
+        <input type="checkbox" id="app-terms" required>
+        I confirm that the details provided are correct.
+      </label>
+      <small class="field-error" id="err-app-terms"></small>
+    </div>
+  </div>
+
+  <div class="application-tab" style="display:none;">
+    <h4>Part 3: Fees Payment</h4>
+    <div class="form-grid register-grid">
+      <div class="form-field">
+        <label for="app-feeAmount">Fee Amount</label>
+        <input type="number" id="app-feeAmount" value="5000" required readonly>
+      </div>
+      <div class="form-field">
+        <label for="app-paymentMethod">Payment Method</label>
+        <select id="app-paymentMethod" required>
+          <option value="" selected disabled>Select method</option>
+          <option value="UPI">UPI</option>
+          <option value="NetBanking">Net Banking</option>
+          <option value="Card">Card</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label for="app-transactionId">Transaction ID</label>
+        <input type="text" id="app-transactionId" placeholder="Enter payment transaction ID" required>
+      </div>
+    </div>
+    <div id="paymentGatewayDiv" style="margin-top:16px;"></div>
+  </div>
+
+  <div style="overflow:auto; margin-top:10px;">
+    <div style="float:right;">
+      <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+      <button type="button" id="nextBtn" onclick="nextPrev(1)">Next</button>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top:20px;">
+    <span class="step"></span>
+    <span class="step"></span>
+    <span class="step"></span>
+  </div>
+
+  </form>
+
+  <div class="form-errors" id="app-form-errors" role="alert" aria-live="polite"></div>
+
+</div>
+
+<div id="profileInfo" style="display:none;">
+  <p>Course: <span id="course"></span></p>
+  <button onclick="viewProfile()">View Profile</button>
+  <button onclick="editApplication()" style="margin-left:10px;">Edit Application</button>
+</div>
+
+<div id="successModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="successModalTitle" style="display:none;">
+  <div class="modal-content">
+    <h3 id="successModalTitle">Application Submitted</h3>
+    <p>Your student application has been successfully submitted and saved. You can review your profile or edit application details anytime.</p>
+    <button onclick="closeSuccessModal()">Continue</button>
+  </div>
+</div>
+
+</div>
+
+</body>
+</html>
+

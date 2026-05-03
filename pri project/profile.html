@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Student Profile</title>
+<link rel="stylesheet" href="style.css">
+<script defer src="script.js"></script>
+</head>
+
+<body onload="loadProfile()">
+
+<header>
+<h1>Student Profile</h1>
+</header>
+
+<nav>
+<a href="dashboard.html">Dashboard</a>
+<a href="#" onclick="logout()">Logout</a>
+</nav>
+
+<div class="container">
+
+<div id="loadingMessage" style="text-align:center; padding:40px;">
+  <p>Loading profile...</p>
+</div>
+
+<table class="profile-table" id="profileTable" style="display:none;">
+  <tr><th>Name</th><td id="pname"></td></tr>
+  <tr><th>Email</th><td id="pemail"></td></tr>
+  <tr><th>Phone</th><td id="pphone"></td></tr>
+  <tr><th>Course</th><td id="pcourse"></td></tr>
+  <tr><th>Gender</th><td id="pgender"></td></tr>
+  <tr><th>Date of Birth</th><td id="pdob"></td></tr>
+  <tr><th>Address</th><td id="paddress"></td></tr>
+  <tr><th>Father's Name</th><td id="pfatherName"></td></tr>
+  <tr><th>Mother's Name</th><td id="pmotherName"></td></tr>
+  <tr><th>Caste</th><td id="pcaste"></td></tr>
+  <tr><th>Nationality</th><td id="pnationality"></td></tr>
+  <tr><th>State</th><td id="pstate"></td></tr>
+  <tr><th>Pincode</th><td id="ppincode"></td></tr>
+  <tr><th>Aadhar Card</th><td id="padharFile"></td></tr>
+  <tr><th>Marks Card</th><td id="pmarksCardFile"></td></tr>
+  <tr><th>Ration Card</th><td id="prationCardFile"></td></tr>
+</table>
+
+</div>
+
+</body>
+</html>
+

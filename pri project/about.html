@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>College Website</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+<style>
+* {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body {
+    background:#f4f7fb;
+}
+
+/* HEADER */
+header {
+    text-align:center;
+    padding:60px 20px;
+    color:white;
+    background: linear-gradient(-45deg,#667eea,#764ba2,#6dd5fa,#2980b9);
+    background-size:400% 400%;
+    animation:gradient 8s infinite;
+}
+
+@keyframes gradient {
+    0%{background-position:0%}
+    50%{background-position:100%}
+    100%{background-position:0%}
+}
+
+.logo {
+    width:90px;
+}
+
+.header-box {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+    margin-top:20px;
+    background:rgba(255,255,255,0.1);
+    backdrop-filter:blur(10px);
+    padding:20px;
+    border-radius:20px;
+}
+
+/* PHOTOS */
+.photo-group {
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.photo-box img {
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    border:3px solid white;
+    transition:0.4s;
+}
+
+.photo-box img:hover {
+    transform:scale(1.1);
+    box-shadow:0 0 15px white;
+}
+
+.photo-box p {
+    font-size:12px;
+}
+
+/* COLLEGE NAME */
+.college-name h1 {
+    font-size:32px;
+}
+
+section {
+    padding:40px 20px;
+    text-align:center;
+}
+
+/* Title */
+.title {
+  text-align: center;
+  margin: 20px;
+}
+
+/* Layout */
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Small box */
+.card {
+  width: 200px;
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+
+/* Circle image */
+.card img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid cyan;
+}
+
+/* Text */
+.card h2 {
+  font-size: 16px;
+  margin: 10px 0 5px;
+}
+
+.card p {
+  font-size: 14px;
+  color: gray;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* FACILITIES */
+.facilities {
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.fac-card {
+    background:white;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.fac-card:hover {
+    transform:translateY(-10px);
+}
+
+.fac-card span {
+    font-size:35px;
+}
+
+.fac-card h3 {
+    margin:10px 0;
+}
+
+/* SLIDER */
+.slider {
+    max-width:600px;
+    margin:auto;
+    overflow:hidden;
+}
+
+.slides {
+    display:flex;
+    transition:0.5s;
+}
+
+.slide {
+    min-width:100%;
+}
+
+.slide img {
+    width:100%;
+    height:250px;
+    background:#ccc;
+}
+
+/* EXTRA 7 PHOTOS */
+.extra-gallery {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-top:30px;
+}
+
+.extra-gallery div {
+    background:white;
+    padding:10px;
+    border-radius:10px;
+}
+
+.extra-gallery img {
+    width:100%;
+    height:150px;
+    background:#ccc;
+}
+
+.extra-gallery p {
+    margin-top:5px;
+    font-size:14px;
+}
+
+.event-gallery {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);  /* 👈 forces 4 in one row */
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.event-gallery img {
+    width: 100%;
+    height: 150px;
+    background: #ccc;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .event-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+.image-row {
+    display: flex;              /* makes row */
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.image-row img {
+    width: 25%;                 /* 4 images = 25% each */
+    height: 150px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .header-box {
+        flex-direction:column;
+    }
+
+    .photo-group {
+        flex-direction:row;
+    }
+
+    .extra-gallery {
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
+.video-row {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.video1 {
+    width: 45%;       /* two videos in one row */
+    height: 400px;    /* reduced height */
+    object-fit: cover;
+    border-radius: 10px;
+}
+.video2 {
+    width: 45%;       /* two videos in one row */
+    height: 400px;    /* reduced height */
+    object-fit: cover;
+    object-position: 50% 20%;
+    border-radius: 10px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .video-row {
+        flex-direction: column;
+    }
+
+    .video-row video {
+        width: 100%;
+    }
+}
+
+
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+
+<img src="" class="logo">
+
+<div class="header-box">
+
+    <div class="photo-group">
+        <div class="photo-box"><img src="img1.png"><p>Dr.B.Shivalingaiah</p></div>
+    </div>
+
+    <div class="college-name">
+        <h1>MANDAVYA FIRST GRADE COLLEGE</h1>
+        <p>Excellence in Education</p>
+    </div>
+
+    <div class="photo-group">
+        <div class="photo-box"><img src="img2.png"><p>Smt.Dr.Meera Shivalingaiah</p></div>
+    </div>
+
+</div>
+
+</header>
+
+<nav class="site-nav">
+    <a href="index.html">Home</a>
+    <a href="register.html">Register</a>
+    <a href="login.html">Login</a>
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+    <a href="admin-login.html">Admin</a>
+</nav>
+
+
+
+<!-- ABOUT -->
+<section>
+<h2>About College</h2>
+<p>Mandavya First Grade College Of Science & Commerce. Jnanasagara Campus, M.c. Road, Mandya Was Started In 2006.
+     The College Is Permanent Affiliated With The University Of Mysore & Recognized By The Govt Of Karnataka.
+      Within A Couple Of Years Of Its Inception, The College Has Gained Popularity In The Southern Part Of Karnataka.</p></br>
+
+<p>    The College Is Located At Jnanasagara Campus, M.c. Road, Nh 275 In The Outskirts Of Mandya City. 
+      About 4 Km. From The Mandya Ksrtc Bus Stand The College Building Is An Architectural Beauty Situated Amidst Beautiful Gardens And Laws.</p></br>
+
+ <p> The College Is Creating The Needs Of The Students By Providing All The Modern Facilities Like Highly Furnished Class Rooms,
+       State Of The Art Equipped, A Spacious Library With A Reference Section, An Internet Facility, And Above All Highly Qualified, Experienced Dedicated Teaching Faculty. To Encourage The All-round Development Of The Students, The College Is Providing Plenty Of Time & Space For Indoor Games, Athletics & Other Outdoor Games.
+
+</p>
+</section>
+
+<h1 class="title">Academic Partners</h1>
+
+<div class="container">
+
+  <div class="card">
+    <img src="co-1.jpeg" alt="person">
+    <h2>Bhavani Shankar</h2>
+    
+  </div>
+
+  <div class="card">
+    <img src="co-2.jpeg" alt="person">
+    <h2>Mahesh M H</h2>
+    
+  </div>
+
+  <div class="card">
+    <img src="co-3.jpeg" alt="person">
+    <h2>Chandrakumar Y N</h2>
+    
+  </div>
+
+</div>
+
+<!-- FACILITIES -->
+<section>
+<h2>Facilities</h2>
+
+<div class="facilities">
+
+<div class="fac-card">
+<span>📚</span>
+<h3>Library</h3>
+<p>Well-equipped digital and physical library.</p>
+</div>
+
+<div class="fac-card">
+<span>💻</span>
+<h3>Computer Lab</h3>
+<p>High-speed internet and modern systems.</p>
+</div>
+
+<div class="fac-card">
+<span>🏏</span>
+<h3>Sports</h3>
+<p>Indoor and outdoor sports facilities.</p>
+</div></div>
+
+<div class="fac-card">
+<span>🏢</span>
+<h3>Hostel</h3>
+<p>Comfortable accommodation for students.</p>
+</div>
+
+<div class="fac-card">
+<span>🚌</span>
+<h3>Transport</h3>
+<p>Safe and reliable bus services.</p>
+</div>
+
+<div class="fac-card">
+<span>🧪</span>
+<h3>Labs</h3>
+<p>Advanced science and research labs.</p>
+</div>
+
+</div>
+</section>
+
+<!-- SLIDER -->
+<section>
+<h2>Campus Gallery</h2>
+
+<div class="slider">
+<div class="slides" id="slides">
+<div class="slide"><img src="image1.jpeg"></div>
+<div class="slide"><img src="image2.jpeg"></div>
+<div class="slide"><img src="image3.png"></div>
+<div class="slide"><img src="image4.jpg"></div>
+<div class="slide"><img src="image5.jpg"></div>
+</div>
+</div>
+
+<!-- 7 IMAGE GRID -->
+<div class="extra-gallery">
+
+<div><img src="college.jpeg"><p>Main Building</p></div>
+<div><img src="lab.jpeg"><p>Computer Lab</p></div>
+<div><img src="sports.jpeg"><p>Sports Ground</p></div>
+<div><img src="classroom.jpeg"><p>Classroom</p></div>
+<div><img src="auditorium.jpeg"><p>Auditorium</p></div>
+<div><img src="campus.jpeg"><p>Campus View</p></div>
+
+</div>
+
+</section>
+
+<!-- EVENTS -->
+<section class="fade">
+    <h2>Cultural Events</h2>
+    
+    
+
+    <div class="video-row">
+    <video class=video1 controls>
+        <source src="video1.mp4">
+    </video>
+
+    <video class=video2 controls>
+        <source src="video2.mp4">
+    </video>
+</div>
+</section>
+
+
+
+<script>
+let i=0;
+function autoSlide(){
+    let s=document.getElementById("slides");
+    i=(i+1)%5;
+    s.style.transform=`translateX(-${i*100}%)`;
+}
+setInterval(autoSlide,2500);
+</script>
+
+</body>
+</html>

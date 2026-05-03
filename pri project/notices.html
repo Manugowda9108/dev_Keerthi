@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notices & Announcements - College Portal</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .notices-wrapper { max-width:1000px; margin:0 auto; padding:20px; }
+    .notices-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:20px; margin-top:24px; }
+    .admin-section-notices { background:#f8f9fc; padding:20px; border-radius:12px; border:1px solid #d4d9eb; margin-bottom:24px; }
+    .notice-form { display:grid; gap:12px; }
+    .notice-form label { font-weight:600; color:#0b3d91; }
+    .notice-form input, .notice-form textarea, .notice-form select {
+      padding:10px; border:1px solid #d0d6eb; border-radius:8px; font-family:inherit; font-size:14px;
+    }
+    .notice-form textarea { resize:vertical; min-height:100px; }
+    .form-button { padding:12px 24px; background:#0b3d91; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:600; transition:background 0.3s; }
+    .form-button:hover { background:#083a78; }
+    @media(max-width:768px) {
+      .notices-wrapper { padding:12px; }
+      .notices-grid { grid-template-columns:1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-content">
+      <h1>College Portal</h1>
+      <p>Notices & Announcements</p>
+    </div>
+  </header>
+
+<nav class="site-nav">
+    <div class="nav-container">
+      <a href="index.html">Home</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+      <a href="notices.html" style="color:#fff;">Notices</a>
+      <span id="userGreeting" style="margin-left:auto; color:#fff; font-weight:600;"></span>
+    </div>
+  </nav>
+
+  <div class="notices-wrapper">
+    <h2 style="margin-bottom:8px;">📢 Official Notices & Announcements</h2>
+    <p style="color:#666; margin-bottom:20px;">Stay updated with official college announcements and important notices</p>
+
+    <!-- Admin Notice Posting Section -->
+    <div id="adminNoticeSection" class="admin-section-notices" style="display:none;">
+      <h3 style="margin-top:0;">✍️ Post New Notice</h3>
+      <form class="notice-form" onsubmit="event.preventDefault(); postNotice(); return false;">
+        <div>
+          <label for="noticeTitle">Notice Title *</label>
+          <input type="text" id="noticeTitle" placeholder="e.g., Semester Exam Schedule" required>
+        </div>
+        <div>
+          <label for="noticeContent">Notice Content *</label>
+          <textarea id="noticeContent" placeholder="Type your notice here..." required></textarea>
+        </div>
+        <div>
+          <label for="noticePriority">Priority Level</label>
+          <select id="noticePriority">
+            <option value="Normal">🟢 Normal</option>
+            <option value="Important">🟡 Important</option>
+            <option value="Urgent">🔴 Urgent</option>
+          </select>
+        </div>
+        <button type="submit" class="form-button">📤 Post Notice</button>
+      </form>
+    </div>
+
+    <!-- Notices Display Section -->
+    <div id="noticesContainer" class="notices-grid">
+      <p style="text-align:center; color:#666; grid-column:1/-1; padding:40px 20px;">Loading notices...</p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Setup page on load
+    function setupNoticesPage(){
+      let greeting = document.getElementById('userGreeting');
+      let role = getCurrentUserRole();
+      let username = getLoggedUsername();
+
+      if(role === 'ADMIN'){
+        greeting.textContent = '👤 Admin User';
+      } else if(username){
+        greeting.textContent = `👤 ${username}`;
+      } else {
+        greeting.textContent = '👤 Guest';
+      }
+      
+      loadNotices();
+    }
+    
+    // Initialize on page load
+    if(document.readyState === 'loading'){
+      document.addEventListener('DOMContentLoaded', setupNoticesPage);
+    } else {
+      setupNoticesPage();
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mandavya First Grade College Admission</title>
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* HEADER */
+
+
+
+        .logo {
+            width: 90px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 30px;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            margin: 5px 0 0;
+            font-size: 16px;
+            color: #ffd;
+            font-style: italic;
+        }
+
+        /* Navigation Bar */
+
+        .navbar {
+            background: linear-gradient(to right, #1F2A44, #3A4A6A);
+            padding: 10px;
+            text-align: center;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 20px;
+            font-size: 18px;
+        }
+
+        /* HERO SECTION */
+
+        .hero {
+            min-height: 100vh;
+        }
+
+        .left {
+            width: 100%;
+            height: 100vh;
+            background: url("college.jpeg") center/cover no-repeat;
+            position: relative;
+
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .hero-text {
+            position: absolute;
+            bottom: 100px;
+            left: 60px;
+            color: white;
+        }
+
+        .hero-text h2 {
+            font-size: 38px;
+            margin: 0;
+        }
+
+        .right {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #f4f4f4;
+        }
+
+        .form-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 320px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-box h3 {
+            text-align: center;
+            color: #0b3b75;
+            margin-top: 0;
+        }
+
+        .tabs {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .tabs button {
+            padding: 8px 18px;
+            margin: 5px;
+            border-radius: 20px;
+            border: none;
+        }
+
+        .register {
+            background: #bc7ab9;
+            color: white;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .btn {
+            width: 100%;
+            background: #bc7ab9;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* STEPS SECTION */
+
+        .steps-section {
+            padding: 80px 40px;
+            background: #f5f5f5;
+            text-align: center;
+        }
+
+        .steps-title {
+            font-size: 30px;
+            color: #bc7ab9;
+            margin-bottom: 40px;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .step {
+            width: 160px;
+            background: linear-gradient(#c4162a, #a30f1f);
+            color: white;
+            padding: 25px;
+            clip-path: polygon(0 0, 100% 0, 100% 80%, 50% 100%, 0 80%);
+        }
+
+        .step h3 {
+            margin: 10px 0;
+        }
+
+        /* INSTRUCTIONS */
+
+        .instructions {
+            background: #bc7ab9;
+            color: white;
+            padding: 80px 40px;
+        }
+
+        .instruction-title {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 40px;
+        }
+
+        .instruction-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            flex-wrap: wrap;
+        }
+
+        .instruction-content img {
+            width: 200px;
+        }
+
+        .instruction-box {
+            background: #c4162a;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+        }
+
+        .instruction-box li {
+            margin-bottom: 12px;
+        }
+
+        .about-section {
+            padding: 80px 40px;
+            background: #f5f5f5;
+        }
+
+        .about-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .about-image img {
+            width: 400px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .about-text {
+            max-width: 500px;
+        }
+
+        .about-text h2 {
+            font-size: 34px;
+            color: #143c78;
+            margin-bottom: 15px;
+        }
+
+        .about-text p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* COURSES SECTION */
+
+        .courses {
+            padding: 80px 40px;
+            background: #ffffff;
+            text-align: center;
+        }
+
+        .courses-title {
+            font-size: 34px;
+            color: #143c78;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .courses-title::after {
+            content: "";
+            width: 80px;
+            height: 4px;
+            background: #c4162a;
+            display: block;
+            margin: 10px auto;
+        }
+
+        .course-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .course-box {
+            width: 300px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-box img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .course-box h3 {
+            color: #bc7ab9;
+            margin: 15px 0 10px;
+        }
+
+        .course-box p {
+            font-size: 15px;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body class="home-page">
+         <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="header-container">
+
+            <img src="Seb.png" alt="College Logo" class="logo">
+
+            <div class="header-text">
+                <h1>Mandavya First Grade College</h1>
+                <p>Quality Education For A Bright Future</p>
+            </div>
+
+        </div>
+
+    </header>
+
+    <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="register.html">Register</a>
+        <a href="login.html">Login</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="admin-login.html" style="color:#d97706; font-weight:700;">Admin</a>
+    </div>
+
+
+    <!-- HERO REGISTER SECTION -->
+
+    <section class="hero">
+
+        <div class="left">
+
+            <div class="overlay"></div>
+
+            <div class="hero-text">
+
+                <p class="welcome">WELCOME TO MANDAVYA COLLEGE</p>
+
+                <h1 class="main-title">EDUCATION IS THE BEST KEY TO SUCCESS IN LIFE</h1>
+
+                <p class="description">
+                    Start your journey with quality education, experienced faculty,
+                    and modern learning facilities.
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+    </section>
+
+    <!-- ABOUT SECTION -->
+
+    <section class="about-section">
+
+        <div class="about-container">
+
+            <div class="about-image">
+                <img src="mfgc.png">
+            </div>
+
+            <div class="about-text">
+
+                <h2>Welcome To Mandavya College</h2>
+
+                <p>
+                    Mandavya First Grade College is committed to providing quality education
+                    and building future leaders. Our institution offers modern learning
+                    facilities, experienced faculty, and an environment that encourages
+                    innovation, research, and academic excellence.
+                </p>
+
+                <p>
+                    Students are guided to develop their knowledge, leadership skills, and
+                    confidence so they can succeed in their careers and contribute positively
+                    to society.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- OUR COURSES -->
+
+    <section class="courses">
+
+        <h2 class="courses-title">Our Courses</h2>
+
+        <div class="course-container">
+
+            <div class="course-box">
+                <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f">
+                <h3>Bachelor of Commerce</h3>
+                <p>Learn business, accounting, and finance skills to build a successful career in commerce.</p>
+            </div>
+
+            <div class="course-box">
+                <img src="WhatsApp Image 2026-04-15 at 7.18.20 AM.jpeg">
+                <h3>Bachelor of Computer Applications</h3>
+                <p>Gain knowledge in programming, databases, and software development.</p>
+            </div>
+
+            <div class="course-box">
+                <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d">
+                <h3>Bachelor of Business Administration</h3>
+                <p>Develop leadership, management, and entrepreneurship skills.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- STEPS -->
+
+    <section class="steps-section">
+
+        <h2 class="steps-title">STEPS TO FOLLOW</h2>
+
+        <div class="steps">
+
+            <div class="step">
+                <h3>STEP 1</h3>
+                <p>Register Yourself</p>
+            </div>
+
+            <div class="step">
+                <h3>STEP 2</h3>
+                <p>Verify Email</p>
+            </div>
+
+            <div class="step">
+                <h3>STEP 3</h3>
+                <p>Fill Application Form</p>
+            </div>
+
+            <div class="step">
+                <h3>STEP 4</h3>
+                <p>Pay Application Fee</p>
+            </div>
+
+            <div class="step">
+                <h3>STEP 5</h3>
+                <p>Submit Application</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- INSTRUCTIONS -->
+
+    <section class="instructions">
+
+        <h2 class="instruction-title">INSTRUCTIONS</h2>
+
+        <div class="instruction-content">
+
+            <img src="instruction.png">
+
+            <div class="instruction-box">
+
+                <ul>
+
+                    <li>The online application is for admission to programs offered by the college.</li>
+
+                    <li>Application form fee is non-refundable.</li>
+
+                    <li>Email ID used during registration will be used for communication.</li>
+
+                    <li>Keep scanned documents ready before applying.</li>
+
+                    <li>Verify your email ID after registration.</li>
+
+                    <li>Submit your application before the deadline.</li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</body>
+
+</html>

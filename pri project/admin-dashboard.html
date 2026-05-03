@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>Admin Dashboard - College Portal</title>
+<link rel="stylesheet" href="style.css">
+<script defer src="script.js"></script>
+</head>
+
+<body onload="loadAdminDashboard()">
+
+<header style="background:#1a2a4e;">
+<h1>Admin Dashboard</h1>
+</header>
+
+<nav style="background:#243b63; padding:0; display:flex; gap:0; flex-wrap:wrap;">
+<a href="#" onclick="showAdminSection('summary')" style="flex:1; min-width:120px; display:flex; align-items:center; justify-content:center; padding:16px 14px; text-align:center; white-space:nowrap; border-right:1px solid #1c2f47;">Dashboard</a>
+<a href="#" onclick="showAdminSection('students')" style="flex:1; min-width:120px; display:flex; align-items:center; justify-content:center; padding:16px 14px; text-align:center; white-space:nowrap; border-right:1px solid #1c2f47;">All Students</a>
+<a href="#" onclick="showAdminSection('applications')" style="flex:1; min-width:120px; display:flex; align-items:center; justify-content:center; padding:16px 14px; text-align:center; white-space:nowrap; border-right:1px solid #1c2f47;">Applications</a>
+<a href="#" onclick="showAdminSection('marks')" style="flex:1; min-width:120px; display:flex; align-items:center; justify-content:center; padding:16px 14px; text-align:center; white-space:nowrap; border-right:1px solid #1c2f47;">Marks</a>
+<a href="#" onclick="showAdminSection('notices')" style="flex:1; min-width:120px; display:flex; align-items:center; justify-content:center; padding:16px 14px; text-align:center; white-space:nowrap; border-right:1px solid #1c2f47;">Notices</a>
+<a href="#" onclick="adminLogout()" style="flex:0.6; min-width:100px; display:flex; align-items:center; justify-content:center; padding:16px 14px; text-align:center; white-space:nowrap; background:#1a212e;">Logout</a>
+</nav>
+
+<div class="container">
+
+<h2>Welcome, <span id="adminName">Admin</span></h2>
+
+<!-- Summary Section -->
+<div id="summarySection" class="admin-section">
+  <h3>Dashboard Summary</h3>
+  <div class="stats-grid">
+    <div class="stat-card">
+      <h4 id="totalStudents">0</h4>
+      <p>Total Students</p>
+    </div>
+    <div class="stat-card">
+      <h4 id="totalApplications">0</h4>
+      <p>Total Applications</p>
+    </div>
+    <div class="stat-card">
+      <h4 id="pendingApplications">0</h4>
+      <p>Pending Applications</p>
+    </div>
+    <div class="stat-card">
+      <h4 id="approvedApplications">0</h4>
+      <p>Approved Applications</p>
+    </div>
+  </div>
+</div>
+
+<!-- Students Section -->
+<div id="studentsSection" class="admin-section" style="display:none;">
+  <h3>Registered Students</h3>
+  <div style="margin-bottom:16px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+    <input type="text" id="studentSearchBox" placeholder="Search by name or email..." onkeyup="filterStudentsTable()" style="flex:1; min-width:220px; padding:8px; border:1px solid #d0d6eb; border-radius:8px;">
+  </div>
+  <div style="overflow-x:auto; border-radius:8px; border:1px solid #d4d9eb;">
+    <table class="admin-table">
+      <thead>
+        <tr><th>Name</th><th>Email</th><th>Phone</th><th>Course</th><th>Status</th><th>Action</th></tr>
+      </thead>
+      <tbody id="studentsTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Applications Section -->
+<div id="applicationsSection" class="admin-section" style="display:none;">
+  <h3>Student Applications</h3>
+  <div style="margin-bottom:18px; display:flex; gap:10px; flex-wrap:wrap;">
+    <button onclick="filterApplications('all')">All</button>
+    <button onclick="filterApplications('submitted')">Submitted</button>
+    <button onclick="filterApplications('approved')">Approved</button>
+    <button onclick="filterApplications('rejected')">Rejected</button>
+  </div>
+  <div style="overflow-x:auto; border-radius:8px;">
+    <table class="admin-table">
+      <thead>
+        <tr><th>Student Name</th><th>Email</th><th>Course</th><th>Submission Date</th><th>Status</th><th>Action</th></tr>
+      </thead>
+      <tbody id="applicationsTableBody"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Marks Section -->
+<div id="marksSection" class="admin-section" style="display:none;">
+  <h3>Manage Student Marks</h3>
+  <div style="margin-bottom:18px; display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+    <label style="margin:0;"><strong>Search Student:</strong></label>
+    <input type="text" id="marksSearchBox" placeholder="Enter student name..." style="padding:8px; border:1px solid #d0d6eb; border-radius:8px; flex:1; min-width:220px;">
+    <button onclick="searchStudentForMarks()">Search</button>
+  </div>
+  <div id="marksResultContainer" style="margin-top:16px; overflow-x:auto;"></div>
+</div>
+
+<!-- Notices Management Section -->
+<div id="noticesSection" class="admin-section" style="display:none;">
+  <h3>📢 Manage Notices & Announcements</h3>
+  <div style="background:#f8f9fc; border:1px solid #d4d9eb; border-radius:12px; padding:16px; margin-bottom:20px;">
+    <h4>Post New Notice</h4>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:12px;">
+      <input type="text" id="adminNoticeTitle" placeholder="Enter notice title" style="padding:10px; border:1px solid #d0d6eb; border-radius:8px;">
+      <select id="adminNoticePriority" style="padding:10px; border:1px solid #d0d6eb; border-radius:8px;">
+        <option value="Normal">🟢 Normal</option>
+        <option value="Important">🟡 Important</option>
+        <option value="Urgent">🔴 Urgent</option>
+      </select>
+    </div>
+    <textarea id="adminNoticeContent" placeholder="Enter notice content..." style="width:100%; min-height:100px; padding:10px; border:1px solid #d0d6eb; border-radius:8px; margin-bottom:12px; font-family:inherit;"></textarea>
+    <button onclick="postAdminNotice()" style="padding:12px 20px; background:#0b3d91; color:#fff; border:none; border-radius:8px; cursor:pointer; font-weight:600;">Post Notice</button>
+  </div>
+  <h4>All Notices</h4>
+  <div id="adminNoticesContainer" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:16px;"></div>
+</div>
+</div>
+
+<!-- Student Details Modal -->
+<div id="studentModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="studentModalTitle" style="display:none;">
+  <div class="modal-content">
+    <h3 id="studentModalTitle">Student Details</h3>
+    <div id="studentModalContent"></div>
+    <button onclick="closeStudentModal()" style="margin-top:16px; padding:8px 16px; background:#0b3d91; color:#fff; border:none; border-radius:8px; cursor:pointer;">Close</button>
+  </div>
+</div>
+
+</div>
+
+</body>
+</html>
+
